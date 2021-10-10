@@ -7,7 +7,8 @@ import {
   isString,
 } from "./typeGuard";
 
-describe("isArray test", () => {
+// isArray
+describe("isArray", () => {
   it("primitive success", () => {
     expect(isArray(["foo", "hoge"], isString)).toBe(true);
     expect(isArray([1, 2, 3], isNumber)).toBe(true);
@@ -41,14 +42,24 @@ describe("isArray test", () => {
   });
 });
 
-// todo: union
-describe("isOptional test", () => {
-  it("success", () => {
+// isOptional
+describe("isOptional", () => {
+  it("primitive success", () => {
     expect(isOptional("", isString)).toBe(true);
     expect(isOptional(undefined, isString)).toBe(true);
     expect(isOptional(undefined, isArray)).toBe(true);
   });
-  it("error", () => {
+  it("primitive error", () => {
     expect(isOptional(1, isString)).toBe(false);
+  });
+
+  it("union success", () => {
+    expect(isOptional<string | number>("", isString, isNumber)).toBe(true);
+  });
+
+  it("union error", () => {
+    expect(isOptional<string | number>(new Date(), isString, isNumber)).toBe(
+      false
+    );
   });
 });

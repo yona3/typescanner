@@ -61,9 +61,9 @@ export const isArray = <T>(
  */
 export const isOptional = <T>(
   value: unknown,
-  condition: (value: unknown) => value is T
+  ...conditions: ((value: unknown) => value is T)[]
 ): value is T | undefined => {
-  return value === undefined || condition(value);
+  return value === undefined || conditions.some((cond) => cond(value));
 };
 
 /**
