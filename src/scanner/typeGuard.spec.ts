@@ -9,13 +9,13 @@ import {
 
 describe("isArray test", () => {
   it("primitive success", () => {
-    expect(isArray<string>(["foo", "hoge"], isString)).toBe(true);
-    expect(isArray<number>([1, 2, 3], isNumber)).toBe(true);
-    expect(isArray<boolean>([true, false], isBoolean)).toBe(true);
+    expect(isArray(["foo", "hoge"], isString)).toBe(true);
+    expect(isArray([1, 2, 3], isNumber)).toBe(true);
+    expect(isArray([true, false], isBoolean)).toBe(true);
   });
   it("primitive error", () => {
-    expect(isArray<string>([1, 2, 3], isString)).toBe(false);
-    expect(isArray<string>([1, "2"], isString)).toBe(false);
+    expect(isArray([1, 2, 3], isString)).toBe(false);
+    expect(isArray([1, "2"], isString)).toBe(false);
   });
 
   it("union success", () => {
@@ -41,10 +41,12 @@ describe("isArray test", () => {
   });
 });
 
+// todo: union
 describe("isOptional test", () => {
   it("success", () => {
     expect(isOptional("", isString)).toBe(true);
     expect(isOptional(undefined, isString)).toBe(true);
+    expect(isOptional(undefined, isArray)).toBe(true);
   });
   it("error", () => {
     expect(isOptional(1, isString)).toBe(false);
