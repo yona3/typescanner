@@ -1,3 +1,1 @@
-import { sayHello } from "./sayHello";
-
-console.log(sayHello("yona"));
+console.log("Hello!");
