@@ -1,5 +1,5 @@
 {
-  "name": "ts-object-guard",
+  "name": "typescanner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
