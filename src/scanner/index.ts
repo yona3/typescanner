@@ -13,6 +13,7 @@ export {
   string,
   symbol,
   Undefined,
+  union,
 } from "./fields";
 
 // type guard
@@ -29,14 +30,25 @@ export {
   isUndefined,
 } from "./typeGuard";
 
-export const scanner = <T>(obj: { [key in keyof T]: Condition<any> }): ((
-  value: unknown
-) => value is T) => {
+// scanner
+export const scanner = <T>(fields: {
+  [key in keyof T]: Condition<any> | Condition<any>[];
+}): ((value: unknown) => value is T) => {
   return (value: unknown): value is T =>
+    // init value (convert all values to unknown)
     isObject<T>(value) &&
-    typeof obj === "object" &&
-    obj !== null && // check is object
-    Object.entries<Condition<T>>(obj).every(
-      ([key, condition]) => condition((value as any)[key]) // todo: any
+    // check fields is object
+    typeof fields === "object" &&
+    fields !== null &&
+    // check each value
+    Object.entries<Condition<T> | Condition<T>[]>(fields).every(
+      ([key, condition]) => {
+        if (Array.isArray(condition)) {
+          // if union
+          return condition.some((cond) => cond((value as any)[key]));
+        } else {
+          return condition((value as any)[key]);
+        }
+      }
     );
 };

@@ -55,6 +55,12 @@ export const date = isDate;
 /**
  * @package
  */
+export const union = <T>(...conditions: Condition<T>[]): Condition<T>[] =>
+  conditions;
+
+/**
+ * @package
+ */
 export const array =
   <T>(condition: Condition<T>) =>
   (value: unknown): value is T[] =>
