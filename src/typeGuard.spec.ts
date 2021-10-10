@@ -1,4 +1,11 @@
-import { isArray, isBoolean, isDate, isNumber, isOptional, isString } from ".";
+import {
+  isArray,
+  isBoolean,
+  isDate,
+  isNumber,
+  isOptional,
+  isString,
+} from "./typeGuard";
 
 describe("isArray test", () => {
   it("primitive success", () => {
