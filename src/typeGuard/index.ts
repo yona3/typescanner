@@ -20,13 +20,12 @@ export const isNull = (value: unknown): value is null => value === null;
 
 export const isDate = (value: unknown): value is Date => value instanceof Date;
 
-// ! cannot be used for Union type.
 export const isArray = <T>(
   array: unknown,
-  condition: (value: unknown) => value is T
-): array is T[] => {
-  return Array.isArray(array) && array.every(condition);
-};
+  ...conditions: ((value: unknown) => value is T)[]
+): array is T[] =>
+  Array.isArray(array) &&
+  array.every((value) => conditions.some((cond) => cond(value)));
 
 export const isOptional = <T>(
   value: unknown,
