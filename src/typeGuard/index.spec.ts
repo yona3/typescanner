@@ -1,13 +1,13 @@
 import { isArray, isBoolean, isDate, isNumber, isOptional, isString } from ".";
 
 describe("isArray test", () => {
-  it("string success", () => {
+  it("primitive success", () => {
     expect(isArray<string>(["foo", "hoge"], isString)).toBe(true);
+    expect(isArray<number>([1, 2, 3], isNumber)).toBe(true);
+    expect(isArray<boolean>([true, false], isBoolean)).toBe(true);
   });
-  it("string error1", () => {
+  it("primitive error", () => {
     expect(isArray<string>([1, 2, 3], isString)).toBe(false);
-  });
-  it("string error2", () => {
     expect(isArray<string>([1, "2"], isString)).toBe(false);
   });
 
@@ -35,13 +35,11 @@ describe("isArray test", () => {
 });
 
 describe("isOptional test", () => {
-  it("string success", () => {
+  it("success", () => {
     expect(isOptional("", isString)).toBe(true);
-  });
-  it("string error", () => {
-    expect(isOptional(1, isString)).toBe(false);
-  });
-  it("undefined success", () => {
     expect(isOptional(undefined, isString)).toBe(true);
+  });
+  it("error", () => {
+    expect(isOptional(1, isString)).toBe(false);
   });
 });
