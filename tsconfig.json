@@ -4,7 +4,12 @@
     "outDir": "dist",
     "strict": true,
     "lib": ["esnext"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "eslint-plugin-import-access"
+      }
+    ]
   },
   "include": ["src/**/*.ts", ".eslintrc.js"],
   "exclude": ["node_modules", "dist"]
