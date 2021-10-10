@@ -33,3 +33,8 @@ export const isOptional = <T>(
 ): value is T | undefined => {
   return value === undefined || condition(value);
 };
+
+type WouldBe<T> = { [P in keyof T]?: unknown };
+
+export const isObject = <T>(value: unknown): value is WouldBe<T> =>
+  typeof value === "object" && value !== null;
