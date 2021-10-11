@@ -80,6 +80,6 @@ export const optional = <T>(
 /**
  * @package
  */
-export const list = <T>(array: T[]): ((value: unknown) => value is T[]) => {
-  return (value: unknown): value is T[] => isList(value, array);
+export const list = <T>(array: T[]): ((value: unknown) => value is T) => {
+  return (value: unknown): value is T => isList(value, array);
 };
