@@ -62,16 +62,16 @@ export const union = <T>(...conditions: Condition<T>[]): Condition<T>[] =>
  * @package
  */
 export const array =
-  <T>(condition: Condition<T>) =>
+  <T>(...conditions: Condition<T>[]) =>
   (value: unknown): value is T[] =>
-    isArray(value, condition);
+    isArray(value, ...conditions);
 
 /**
  * @package
  */
 export const optional = <T>(
-  condition: Condition<T>
+  ...conditions: Condition<T>[]
 ): ((value: unknown) => value is T | undefined) => {
   return (value: unknown): value is T | undefined =>
-    isOptional(value, condition);
+    isOptional(value, ...conditions);
 };
