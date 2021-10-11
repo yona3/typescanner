@@ -7,6 +7,7 @@ export {
   bigint,
   boolean,
   date,
+  list,
   Null,
   number,
   optional,

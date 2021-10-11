@@ -59,6 +59,12 @@ export const isArray = <T>(
 /**
  * @package
  */
+export const isList = <T>(value: unknown, array: T[]): value is T | undefined =>
+  array.includes(value as T);
+
+/**
+ * @package
+ */
 export const isOptional = <T>(
   value: unknown,
   ...conditions: ((value: unknown) => value is T)[]

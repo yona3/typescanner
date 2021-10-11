@@ -3,6 +3,7 @@ import {
   isBigint,
   isBoolean,
   isDate,
+  isList,
   isNull,
   isNumber,
   isOptional,
@@ -74,4 +75,11 @@ export const optional = <T>(
 ): ((value: unknown) => value is T | undefined) => {
   return (value: unknown): value is T | undefined =>
     isOptional(value, ...conditions);
+};
+
+/**
+ * @package
+ */
+export const list = <T>(array: T[]): ((value: unknown) => value is T[]) => {
+  return (value: unknown): value is T[] => isList(value, array);
 };
