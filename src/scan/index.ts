@@ -1,6 +1,3 @@
-/**
- * @package
- */
 export const scan = <T>(
   value: T,
   condition: (value: unknown) => value is T,

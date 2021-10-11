@@ -1,32 +1,19 @@
-// scanner
-export { scanner } from "./scanner";
+import { isObject } from "../typeGuard";
+import type { Condition } from "../types";
 
-// fields
-export {
-  array,
-  bigint,
-  boolean,
-  date,
-  list,
-  Null,
-  number,
-  optional,
-  string,
-  symbol,
-  Undefined,
-  union,
-} from "./fields";
+export const scanner = <T>(fields: {
+  [key in keyof T]: Condition<any> | Condition<any>[];
+}): ((value: unknown) => value is T) => {
+  // check fields
+  if (!(typeof fields === "object" && fields !== null)) false;
 
-// type guard
-export {
-  isArray,
-  isBigint,
-  isBoolean,
-  isDate,
-  isNull,
-  isNumber,
-  isOptional,
-  isString,
-  isSymbol,
-  isUndefined,
-} from "./typeGuard";
+  return (value: unknown): value is T =>
+    // check each value
+    isObject<T>(value) &&
+    Object.entries<Condition<T> | Condition<T>[]>(fields).every(
+      ([key, condition]) =>
+        Array.isArray(condition)
+          ? condition.some((cond) => cond((value as any)[key]))
+          : condition((value as any)[key])
+    );
+};
