@@ -23,7 +23,7 @@
     "format": "prettier --write . && yarn lint -- --fix",
     "start": "node ./dist",
     "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.production.json",
     "test": "jest"
   },
   "lint-staged": {
