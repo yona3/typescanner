@@ -1,9 +1,9 @@
 export const scan = <T>(
-  value: T,
+  value: unknown,
   condition: (value: unknown) => value is T,
-  callback?: (value: unknown) => void
+  handleError?: (value: unknown) => void
 ): T => {
   if (condition(value)) return value;
-  if (callback) callback(value);
+  if (handleError) handleError(value);
   throw new Error(`type assertion is failed. (value: ${value})`);
 };
