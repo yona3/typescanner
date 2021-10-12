@@ -12,13 +12,13 @@ import {
 } from "..";
 
 describe("scan test", () => {
-  const lang = {
+  const Lang = {
     ja: "ja",
     en: "en",
   } as const;
 
-  type Lang = keyof typeof lang;
-  const langList = Object.values(lang);
+  type Lang = typeof Lang[keyof typeof Lang];
+  const langList = Object.values(Lang);
 
   type Post = {
     id: number;
