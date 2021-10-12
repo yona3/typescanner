@@ -37,6 +37,8 @@ export const optional = <T>(
     isOptional(value, ...conditions);
 };
 
-export const list = <T>(array: T[]): ((value: unknown) => value is T) => {
+export const list = <T>(
+  array: Exclude<T[], never[]>
+): ((value: unknown) => value is T) => {
   return (value: unknown): value is T => isList(value, array);
 };

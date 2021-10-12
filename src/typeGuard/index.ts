@@ -40,5 +40,7 @@ export const isOptional = <T>(
   return value === undefined || conditions.some((cond) => cond(value));
 };
 
-export const isList = <T>(value: unknown, array: T[]): value is T | undefined =>
-  array.includes(value as T);
+export const isList = <T>(
+  value: unknown,
+  array: Exclude<T[], never[]>
+): value is T => array.length !== 0 && array.includes(value as T);
