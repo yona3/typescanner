@@ -1,7 +1,21 @@
 {
   "name": "typescanner",
   "version": "0.1.0",
-  "private": true,
+  "description": "A simple library for implementing type guards in TypeScript.",
+  "author": "yona3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yona3/typescanner"
+  },
+  "bugs": {
+    "url": "https://github.com/yona3/typescanner/issues"
+  },
+  "homepage": "https://github.com/yona3/typescanner#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint src/**/*.ts",
