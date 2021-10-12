@@ -29,8 +29,9 @@ export const isArray = <T>(
   Array.isArray(array) &&
   array.every((value) => conditions.some((cond) => cond(value)));
 
-export const isObject = <T>(value: unknown): value is WouldBe<T> =>
-  typeof value === "object" && value !== null;
+export const isObject = <T extends Record<string, unknown>>(
+  value: unknown
+): value is WouldBe<T> => typeof value === "object" && value !== null;
 
 export const isOptional = <T>(
   value: unknown,

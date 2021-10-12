@@ -1,12 +1,9 @@
 import { isObject } from "../typeGuard";
 import type { Condition } from "../types";
 
-export const scanner = <T>(fields: {
-  [key in keyof T]: Condition<any> | Condition<any>[];
+export const scanner = <T extends Record<string, unknown>>(fields: {
+  [key in keyof Required<T>]: Condition<any> | Condition<any>[];
 }): ((value: unknown) => value is T) => {
-  // check fields
-  if (!(typeof fields === "object" && fields !== null)) false;
-
   return (value: unknown): value is T =>
     // check each value
     isObject<T>(value) &&
