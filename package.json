@@ -1,6 +1,6 @@
 {
   "name": "typescanner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple library for implementing type guards in TypeScript.",
   "author": "yona3",
   "repository": {
@@ -13,6 +13,7 @@
   "homepage": "https://github.com/yona3/typescanner#readme",
   "license": "MIT",
   "main": "dist/index.js",
+  "typeing": "dist/index.d.ts",
   "engines": {
     "node": ">=14"
   },
