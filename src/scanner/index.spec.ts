@@ -48,7 +48,7 @@ describe("scan test", () => {
     lang: list(langList),
     isPublic: boolean,
     createdAt: date,
-    tags: optional(array(string)),
+    tags: optional(array(string), Null),
     foo: union<string | number>(string, number),
   });
 
