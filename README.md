@@ -92,10 +92,13 @@ optional<string | number>(string, number); // string | number | undefined
 // Check if the value passed when determining the type is contained 
 // in the array passed by list().
 list(["a", "b", "c"]); // "a" | "b" | "c"
+
+//　Pass a constructor as argument
+instanceOf(Error)
 ```
 
 ### scanner
-`scanner` is a function for implementing type guard for Objects. It returns a `Condition` of the type defined in Type Aliase by setting a field to the value of each property.
+`scanner` is a function to implement type guard for objects. It returns a "type guard function" of the type defined by Type Aliase by setting a field to the value of each property.
 ```ts
   type Foo = {
     a: string;
@@ -107,7 +110,12 @@ list(["a", "b", "c"]); // "a" | "b" | "c"
     g: "a" | "b" | "c";
     h: string | null;
     i: string | number;
+    j: number;
   };
+  
+  // You can extend fields by defining your own type guard functions.
+  const even = (value: unknown): value is number =>
+    isNumber(value) && value % 2 === 0;
   
   const isFoo = scanner<Foo>({
     a: string,
@@ -119,6 +127,7 @@ list(["a", "b", "c"]); // "a" | "b" | "c"
     g: list(["a", "b", "c"]),
     h: union(string, Null),
     i: union<string | number>(string, number),
+    j: even, // Custom field
   });
   
   const foo = {
@@ -129,6 +138,7 @@ list(["a", "b", "c"]); // "a" | "b" | "c"
     e: ["a", "b"],
     f: "f",
     g: "a",
+    j: 2,
   } as unknown;
   
   if (isFoo(foo)) {
@@ -148,9 +158,12 @@ If the verification is successful, the "narrowed value" will be returned. If it 
   const data = scan(bar, isFoo); // Error: type assertion is failed.
 ```
 
-### primitive
+### other
+Basic type guard functions with function names beginning with "is".
 
 ```ts
+// primitive
+
 isString("a")
 
 isNumber(1)
@@ -166,29 +179,23 @@ isDate(new Data())
 isSymbol(Symbol("a"))
 
 isBigint(BigInt(1))
-```
 
-### isArray
+// isArray
 
-```ts
 isArray(["a", "b"], isString) // string[]
 
 isArray<string | number>(["a", 1], isString, isNumber) // (string | number)[]
 
 isArray(["a", null, undefined], isString, isNull, isUndefined) // (string | null | undefined)[]
-```
 
-### isOptional
+// isOptional
 
-```ts
 isOptional("a", isString) // true
 
 isOptional(undefined, isString) // true
-```
 
-### isList
+// isList
 
-```ts
 const Lang = {
   ja: "ja",
   en: "en",
@@ -197,7 +204,17 @@ const Lang = {
 type Lang = typeof Lang[keyof typeof Lang]; // "ja" | "en"
 const langList = Object.values(Lang);
 
-isList("ja", langList)
+isList("ja", langList) // true
+
+// isInstanceOf
+
+try {
+  ...
+} catch (error) {
+  if (isInstanceOf(error, Error)) {
+    error.message // OK
+  }
+}
 ```
 
 ## Contribution
