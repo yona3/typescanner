@@ -10,6 +10,7 @@ import {
   string,
   union,
 } from "..";
+import { instanceOf } from "../fields";
 
 describe("scan test", () => {
   const Lang = {
@@ -20,6 +21,10 @@ describe("scan test", () => {
   type Lang = typeof Lang[keyof typeof Lang];
   const langList = Object.values(Lang);
 
+  class Timestamp {
+    constructor(public seconds: number, public nanoseconds: number) {}
+  }
+
   type Post = {
     id: number;
     title: string;
@@ -29,6 +34,7 @@ describe("scan test", () => {
     createdAt: Date;
     tags?: string[] | null;
     foo: string | number;
+    timestamp: Timestamp;
   };
 
   type User = {
@@ -50,6 +56,7 @@ describe("scan test", () => {
     createdAt: date,
     tags: optional(array(string), Null),
     foo: union<string | number>(string, number),
+    timestamp: instanceOf(Timestamp),
   });
 
   const isUser = scanner<User>({
@@ -74,6 +81,7 @@ describe("scan test", () => {
     createdAt: new Date(),
     tags: ["tag1", "tag2"],
     foo: "foo",
+    timestamp: new Timestamp(1, 2),
   } as unknown;
 
   const correctUser = {

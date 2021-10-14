@@ -44,3 +44,8 @@ export const isList = <T>(
   value: unknown,
   array: Exclude<T[], never[]>
 ): value is T => array.length !== 0 && array.includes(value as T);
+
+export const isInstanceOf = <T>(
+  value: unknown,
+  constructor: new (...args: any[]) => T
+): value is T => value instanceof constructor;

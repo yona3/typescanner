@@ -1,4 +1,12 @@
-import { isArray, isBoolean, isDate, isNumber, isOptional, isString } from ".";
+import {
+  isArray,
+  isBoolean,
+  isDate,
+  isInstanceOf,
+  isNumber,
+  isOptional,
+  isString,
+} from ".";
 
 // isArray
 describe("isArray", () => {
@@ -54,5 +62,22 @@ describe("isOptional", () => {
     expect(isOptional<string | number>(new Date(), isString, isNumber)).toBe(
       false
     );
+  });
+});
+
+// isInstanceOf
+describe("isInstanceOf", () => {
+  class Timestamp {
+    constructor(public seconds: number, public nanoseconds: number) {}
+  }
+
+  const timestamp = new Timestamp(1, 2) as unknown;
+
+  it("to be true", () => {
+    expect(isInstanceOf(timestamp, Timestamp)).toBe(true);
+  });
+
+  it("to be false", () => {
+    expect(isInstanceOf({}, Timestamp)).toBe(false);
   });
 });

@@ -3,6 +3,7 @@ import {
   isBigint,
   isBoolean,
   isDate,
+  isInstanceOf,
   isList,
   isNull,
   isNumber,
@@ -41,4 +42,10 @@ export const list = <T>(
   array: Exclude<T[], never[]>
 ): ((value: unknown) => value is T) => {
   return (value: unknown): value is T => isList(value, array);
+};
+
+export const instanceOf = <T>(
+  constructor: new (...args: any[]) => T
+): ((value: unknown) => value is T) => {
+  return (value: unknown): value is T => isInstanceOf(value, constructor);
 };
