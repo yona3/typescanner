@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/yona3/typescanner"
   },
+  "keywords": [
+    "typescript",
+    "type-guard"
+  ],
   "bugs": {
     "url": "https://github.com/yona3/typescanner/issues"
   },
