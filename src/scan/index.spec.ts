@@ -3,11 +3,13 @@ import {
   boolean,
   date,
   list,
+  Null,
   number,
   optional,
   scan,
   scanner,
   string,
+  union,
 } from "..";
 
 describe("scan", () => {
@@ -19,6 +21,8 @@ describe("scan", () => {
     e: string[];
     f?: string;
     g: "a" | "b" | "c";
+    h: string | null;
+    i: string | number;
   };
   const foo = {
     a: "a",
@@ -28,6 +32,8 @@ describe("scan", () => {
     e: ["a", "b"],
     f: "f",
     g: "a",
+    h: "",
+    i: 3,
   } as unknown;
 
   const isFoo = scanner<Foo>({
@@ -38,6 +44,8 @@ describe("scan", () => {
     e: array(string),
     f: optional(string),
     g: list(["a", "b", "c"]),
+    h: union(string, Null),
+    i: union<string | number>(string, number),
   });
 
   it("success (primitive)", () => {
