@@ -62,20 +62,7 @@ describe("scan", () => {
       /type assertion is failed./
     );
     expect(() => scan({} as unknown, isFoo)).toThrow(
-      /type assertion is failed./
+      /does not meet the condition./
     );
-  });
-
-  it("throw custom error", () => {
-    expect(() =>
-      scan("hello" as unknown, number, () => {
-        throw new Error("custom error");
-      })
-    ).toThrow(/custom error/);
-    expect(() =>
-      scan({} as unknown, isFoo, () => {
-        throw new Error("value is invalid.");
-      })
-    ).toThrow(/value is invalid./);
   });
 });
