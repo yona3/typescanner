@@ -151,11 +151,11 @@ instanceOf(Error)
 If the verification is successful, the "narrowed value" will be returned. If it fails, it throws an exception.
 ```ts
   // success
-  const data = scan(foo, isFoo);
+  const data = scan(foo as unknown, isFoo);
   data.a // OK
   
   // Error!
-  const data = scan(bar, isFoo); // Error: type assertion is failed.
+  const data = scan(bar as unknown, isFoo); // Error: value.key does not meet the condition.
 ```
 
 ### other
@@ -179,6 +179,10 @@ isDate(new Data())
 isSymbol(Symbol("a"))
 
 isBigint(BigInt(1))
+
+// isObject
+
+isObject(value) // (value: unknown) =>  value is { [P in keyof T]?: unknown }
 
 // isArray
 
