@@ -1,6 +1,6 @@
 {
   "name": "typescanner",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A simple library for implementing type guards in TypeScript.",
   "author": "yona3",
   "repository": {
