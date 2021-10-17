@@ -1,8 +1,13 @@
 # typescanner
 
-typescanner is a simple library for implementing [Type Guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) in TypeScript.
+A simple library for implementing [Type Guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) in TypeScript.
 
-It can be easily implemented from basic primitive type guard to type guard for types defined in Type Aliases.
+
+### Feature
+- Basic Type Guard Functions + Custom Type Guard Functions
+- Intuitive definition of Object's type guard functions
+- Verify the type of a value in one line
+
 
 ## Install
 
