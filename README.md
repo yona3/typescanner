@@ -1,4 +1,7 @@
 # typescanner
+[![Testing](https://github.com/yona3/typescanner/actions/workflows/test.yml/badge.svg)](https://github.com/yona3/typescanner/actions/workflows/test.yml)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/typescanner)
+![NPM](https://img.shields.io/npm/l/typescanner)
 
 A simple library for implementing [Type Guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) in TypeScript.
 
