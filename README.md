@@ -15,7 +15,7 @@ A simple library for implementing [Type Guard](https://www.typescriptlang.org/do
 ## Install
 
 ```shell
-npm i -D typescanner
+npm i typescanner
 ```
 
 ## Example
