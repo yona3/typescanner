@@ -23,11 +23,6 @@ jobs:
         run: node -p -e '`RELEASED_PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
       - name: Create release draft on GitHub
         uses: release-drafter/release-drafter@v5
-        with:
-          version: ${{ env.RELEASED_PACKAGE_VERSION }}
-          name: ${{ env.RELEASED_PACKAGE_VERSION }}
-          tag: ${{ env.RELEASED_PACKAGE_VERSION }}
-          publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: JS-DevTools/npm-publish@v1
