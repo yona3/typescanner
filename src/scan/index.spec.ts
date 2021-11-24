@@ -36,16 +36,37 @@ describe("scan", () => {
     i: 3,
   } as unknown;
 
-  const isFoo = scanner<Foo>({
+  const isFoo = scanner<Foo>(
+    {
+      a: string,
+      b: number,
+      c: boolean,
+      d: date,
+      e: array(string),
+      f: optional(string),
+      g: list(["a", "b", "c"]),
+      h: union(string, Null),
+      i: union<string | number>(string, number),
+    },
+    { isUseWithUnion: true }
+  );
+
+  type Bar = {
+    a: string;
+    b: Foo | null;
+    c: string | null;
+  };
+
+  const bar = {
+    a: "a",
+    b: null,
+    c: null,
+  };
+
+  const isBar = scanner<Bar>({
     a: string,
-    b: number,
-    c: boolean,
-    d: date,
-    e: array(string),
-    f: optional(string),
-    g: list(["a", "b", "c"]),
-    h: union(string, Null),
-    i: union<string | number>(string, number),
+    b: union(isFoo, Null),
+    c: union(string, Null),
   });
 
   it("success (primitive)", () => {
@@ -57,12 +78,21 @@ describe("scan", () => {
     expect(scan(foo, isFoo)).toEqual(foo);
   });
 
+  it("success (object in union: object | null)", () => {
+    expect(scan(bar, isBar)).toEqual(bar);
+  });
+
   it("throw error", () => {
     expect(() => scan("hello" as unknown, number)).toThrow(
       /type assertion is failed./
     );
-    expect(() => scan({} as unknown, isFoo)).toThrow(
+    // normal scanner
+    expect(() => scan({} as unknown, isBar)).toThrow(
       /does not meet the condition./
+    );
+    // if use with union
+    expect(() => scan({} as unknown, isFoo)).toThrow(
+      /type assertion is failed./
     );
   });
 });
