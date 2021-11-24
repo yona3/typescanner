@@ -3,7 +3,7 @@ import type { Condition } from "../types";
 
 export const scanner = <T extends Record<string, unknown>>(fields: {
   [K in keyof Required<T>]: Condition<T[K]> | Condition<T[K]>[];
-}): ((value: unknown) => value is T) => {
+}): Condition<T> => {
   return (value: unknown): value is T => {
     // check each value
     const isMeetCondition =
