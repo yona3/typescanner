@@ -11,6 +11,7 @@ import {
   isString,
   isSymbol,
   isUndefined,
+  isUnion,
 } from "../typeGuard";
 import type { Condition } from "../types";
 
@@ -23,8 +24,10 @@ export const Undefined: Condition<undefined> = isUndefined;
 export const Null: Condition<null> = isNull;
 export const date: Condition<Date> = isDate;
 
-export const union = <T>(...conditions: Condition<T>[]): Condition<T>[] =>
-  conditions;
+export const union =
+  <T>(...conditions: Condition<T>[]): Condition<T> =>
+  (value: unknown): value is T =>
+    isUnion(value, ...conditions);
 
 export const array =
   <T>(...conditions: Condition<T>[]): Condition<T[]> =>
