@@ -55,18 +55,21 @@ describe("scan", () => {
     a: string;
     b: Foo | null;
     c: string | null;
+    d?: Foo | null;
   };
 
   const bar = {
     a: "a",
     b: null,
     c: null,
+    d: undefined,
   };
 
   const isBar = scanner<Bar>({
     a: string,
     b: union(isFoo, Null),
     c: union(string, Null),
+    d: optional(isFoo, Null),
   });
 
   it("success (primitive)", () => {
