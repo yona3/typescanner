@@ -36,4 +36,5 @@ export {
   isString,
   isSymbol,
   isUndefined,
+  isUnion,
 } from "./typeGuard";

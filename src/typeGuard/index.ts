@@ -26,6 +26,11 @@ export const isNull: Condition<null> = (value: unknown): value is null =>
 export const isDate: Condition<Date> = (value: unknown): value is Date =>
   value instanceof Date;
 
+export const isUnion = <T>(
+  value: unknown,
+  ...conditions: Condition<T>[]
+): value is T => conditions.some((condition) => condition(value));
+
 export const isArray = <T>(
   array: unknown,
   ...conditions: ((value: unknown) => value is T)[]

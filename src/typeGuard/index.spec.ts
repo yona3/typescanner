@@ -1,12 +1,44 @@
+import { array, instanceOf, number, scanner, string } from "..";
 import {
   isArray,
   isBoolean,
   isDate,
   isInstanceOf,
+  isNull,
   isNumber,
   isOptional,
   isString,
+  isUnion,
 } from ".";
+
+// isUnion
+describe("isUnion", () => {
+  type Foo = {
+    a: string;
+    b: number;
+  };
+
+  const isFoo = scanner<Foo>({
+    a: string,
+    b: number,
+  });
+
+  it("to be true", () => {
+    expect(isUnion<string | number>(1, isString, isNumber)).toBe(true);
+    expect(isUnion<string | number>("", isString, isNumber)).toBe(true);
+    expect(
+      isUnion<string[] | number[]>([""], array(string), array(number))
+    ).toBe(true);
+    expect(isUnion<Foo | null>(null, isFoo, isNull));
+  });
+  it("to be false", () => {
+    expect(isUnion<string | boolean>(1, isString, isBoolean)).toBe(false);
+    expect(
+      isUnion<string[] | number[]>([true], array(string), array(number))
+    ).toBe(false);
+    expect(isUnion<Foo | Date>(1, isFoo, instanceOf(Date)));
+  });
+});
 
 // isArray
 describe("isArray", () => {
