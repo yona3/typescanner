@@ -123,14 +123,14 @@ describe("scan test", () => {
     expect(isUsers(userList)).toBe(true);
   });
 
-  describe("throw error", () => {
-    // throw error
+  describe("to be false", () => {
+    // to be false
     const post1 = (): Post => {
       const post = correctPost as any;
       delete post.foo;
       return post;
     };
-    // throw error
+    // to be false
     const post2 = (): Post => {
       const post = correctPost as any;
       post.tags = null;
@@ -141,14 +141,12 @@ describe("scan test", () => {
     const post3 = correctPost;
 
     it("is post", () => {
-      expect(() => isPost(post1)).toThrow(/does not meet the condition./);
-      expect(() => isPost(post2)).toThrow(/does not meet the condition./);
+      expect(isPost(post1)).toBe(false);
+      expect(isPost(post2)).toBe(false);
       expect(isPost(post3)).toBe(true);
     });
     it("is posts (include the correct type)", () => {
-      expect(() => isPosts([post1, post2, post3])).toThrow(
-        /does not meet the condition./
-      );
+      expect(isPosts([post1, post2, post3])).toBe(false);
     });
 
     // to be false
@@ -161,14 +159,12 @@ describe("scan test", () => {
     const user2 = correctUser;
 
     it("is user", () => {
-      expect(() => isUser(user1)).toThrow(/does not meet the condition./);
+      expect(isUser(user1)).toBe(false);
       expect(isUser(user2)).toBe(true);
     });
 
     it("is users (inclued the correct type)", () => {
-      expect(() => isUsers([user1, user2])).toThrow(
-        /does not meet the condition./
-      );
+      expect(isUsers([user1, user2])).toBe(false);
     });
   });
 });
