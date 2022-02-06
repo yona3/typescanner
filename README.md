@@ -154,6 +154,25 @@ instanceOf(Error)
   }
 ```
 
+### Debugging with scannar
+
+If you want to see which field has the problem, set `outputLog` to `true`.
+
+> **WARNING**: If the scanner is nested, it may not output logs as expected.
+
+```ts
+const isBar = scanner<Bar>({
+  a: string,
+  b: number,
+}, { outputLog: true })
+
+// throw error
+if (!isBar(data)) throw new Error("data is invalid")
+
+// Error: value.${key} does not meet the condition.
+```
+
+
 ### scan
 `scan` is used with the first argument being the value you want to validate and the second argument being the `Condition`.
 If the verification is successful, the "narrowed value" will be returned. If it fails, it throws an exception.
@@ -163,7 +182,7 @@ If the verification is successful, the "narrowed value" will be returned. If it 
   data.a // OK
   
   // Error!
-  const data = scan(bar as unknown, isFoo); // Error: value.key does not meet the condition.
+  const data = scan(bar as unknown, isFoo); // Error: type assertion is failed.
 ```
 
 ### other
@@ -187,6 +206,10 @@ isDate(new Data())
 isSymbol(Symbol("a"))
 
 isBigint(BigInt(1))
+
+// isUnion
+
+isUnion<string | number>(1, isString, isNumber)
 
 // isObject
 
