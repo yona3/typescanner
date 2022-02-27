@@ -7,10 +7,12 @@ A simple library for implementing [Type Guard](https://www.typescriptlang.org/do
 
 
 ### Feature
-- Basic Type Guard Functions + Custom Type Guard Functions
-- Intuitive definition of Object's type guard functions
-- Verify the type of a value in one line
+- 🛡 Basic Type Guard Functions + Custom Type Guard Functions
+- 💡 Intuitive definition of Object's type guard functions
+- ✨ Verify the type of a value in one line
 
+## Demo
+https://codesandbox.io/s/typescanner-demo-ke7d4
 
 ## Install
 
